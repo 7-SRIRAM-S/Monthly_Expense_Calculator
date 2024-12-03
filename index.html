@@ -1,0 +1,209 @@
+<html>
+<head>
+<title>Monthly_Expense_Calculator</title>
+<style>
+  /* Overall body styling */
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Center the calculator container */
+  .calculator-container {
+    width: 400px;
+    margin: 100px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+
+  /* Styling for the title */
+  h1 {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  /* Styling for inputs */
+  input[type="text"], select {
+    width: 80%;
+    padding: 10px;
+    margin: 10px 0;
+    font-size: 18px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+  }
+
+  input[type="button"], input[type="submit"], input[type="reset"] {
+    width: 40%;
+    padding: 10px;
+    font-size: 18px;
+    border: none;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 10px 0;
+  }
+
+  /* Button hover effect */
+  input[type="button"]:hover, input[type="submit"]:hover, input[type="reset"]:hover {
+    background-color: #45a049;
+  }
+
+  /* Result input box styling */
+  #result {
+    width: 80%;
+    padding: 10px;
+    font-size: 18px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    text-align: center;
+    background-color: #f0f0f0;
+    margin: 20px 0;
+  }
+
+  /* Marquee styling */
+  marquee {
+    color: #555;
+    font-style: italic;
+    font-size: 16px;
+  }
+
+  /* Footer styling */
+  hr {
+    border: 1px solid #ccc;
+  }
+
+  /* Extra margin between buttons */
+  .button-container {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  /* Stylish copyright section */
+  .copyright {
+    text-align: center;
+    font-size: 16px;
+    color: #333;
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #333;
+    color: #fff;
+    border-radius: 5px;
+    font-style: italic;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  /* Hover effect for copyright */
+  .copyright:hover {
+    background-color: #4CAF50;
+    cursor: pointer;
+  }
+</style>
+<script>
+  function calculate() {
+    // Get the values from the input fields
+    const d = new Date();
+    var year = d.getFullYear();
+    var num1 = parseFloat(document.getElementById('n1').value);
+    var num2 = parseFloat(document.getElementById('n2').value);
+    var month = document.getElementById('op').value;
+    var result;
+    var total;
+    
+    if(isNaN(num2)){
+	num2=0;}
+
+    // Validate inputs
+    if (isNaN(num1) ) {
+      alert('Please enter valid values!');
+      return;
+    }
+
+    // Perform the operation based on the selected month
+    if (["January", "March", "May", "July", "August", "October", "December"].includes(month)) {
+      total = 31 - num2;
+      result = num1 * total;
+    } else if (["April", "June", "September", "November"].includes(month)) {
+      total = 30 - num2;
+      result = num1 * total;
+    } else if (month === "February") {
+      if ((year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0)) {
+        total = 29 - num2;
+      } else {
+        total = 28 - num2;
+      }
+      result = num1 * total;
+    }
+
+    // Display the result
+    document.getElementById('result').value = result;
+  }
+
+  function reset() {
+    document.getElementById('n1').value = '';
+    document.getElementById('n2').value = '';
+    document.getElementById('result').value = '';
+  }
+</script>
+</head>
+<body>
+
+<!-- Calculator container -->
+<div class="calculator-container">
+  <h1><u>Monthly Expense Calculator</u></h1>
+
+  <!-- Input fields for numbers -->
+  <h2>Enter the Total Expense of 1 Day:</h2>
+  <input type="text" id="n1">
+
+  <h2>Enter the Number of Days Unbought:</h2>
+  <input type="text" id="n2">
+
+  <h2><b>Select the Month:</b></h2>
+  <select name="Months" id="op">
+    <option value="January">January</option>
+    <option value="February">February</option>
+    <option value="March">March</option>
+    <option value="April">April</option>
+    <option value="May">May</option>
+    <option value="June">June</option>
+    <option value="July">July</option>
+    <option value="August">August</option>
+    <option value="September">September</option>
+    <option value="October">October</option>
+    <option value="November">November</option>
+    <option value="December">December</option>
+  </select>
+
+  <!-- Buttons to trigger actions -->
+  <div class="button-container">
+    <input type="button" value="Calculate" onclick="calculate()">
+    <input type="button" value="Reset" onclick="reset()">
+  </div>
+
+  <hr>
+
+  <!-- Display result -->
+  <h2><b>Total Expense is:</b></h2>
+  <input type="text" id="result" readonly="true">
+
+  <hr>
+
+  <!-- Thank you message with marquee -->
+  <marquee>This Web Application is Especially Made for Calculate Monthly Expenses of Paper,Milk and more....</marquee>
+</div>
+
+<!-- Stylish Copyright Footer -->
+<div class="copyright">
+  &copy; 2024 7-SRIRAM-S. All Rights Reserved.
+</div>
+
+</body>
+</html>
